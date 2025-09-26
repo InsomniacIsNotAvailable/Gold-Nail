@@ -8,25 +8,51 @@ async function waitFinancial() {
   }
 }
 
+// Heuristic: detect if raw values look like PHP per ounce (≈ 200k+) vs PHP per gram (≈ 4k–8k)
+function detectProviderUnit(rows) {
+  try {
+    const vals = rows.flatMap(r => [Number(r.open), Number(r.high), Number(r.low), Number(r.close)])
+      .filter(v => Number.isFinite(v)).sort((a,b)=>a-b);
+    if (vals.length < 4) return 'gram';
+    const mid = Math.floor(vals.length / 2);
+    const median = vals.length % 2 ? vals[mid] : (vals[mid-1] + vals[mid]) / 2;
+    // If median is very large, assume per ounce
+    return median > 20000 ? 'ounce' : 'gram';
+  } catch { return 'gram'; }
+}
+
 function convertRows(rows, karatFactor) {
-  const gramDivisor = 31.1035;
+  // Prefer PHP/gram; if DB still contains PHP/ounce, convert client-side as a hotfix.
+  const unit = detectProviderUnit(rows);
+  const OZ_TO_G = 31.1034768;
+  const divisor = unit === 'ounce' ? OZ_TO_G : 1;
+  if (unit === 'ounce') {
+    console.warn('[gold-chart] Detected ounce-based data; converting to PHP/gram on client.');
+  }
   return rows
     .sort((a,b)=> a.date < b.date ? -1 : a.date > b.date ? 1 : 0)
     .map(r => ({
       _date: r.date, // keep original YYYY-MM-DD for merge
       x: new Date(r.date + 'T00:00:00Z').getTime(),
-      o: (+r.open  / gramDivisor) * karatFactor,
-      h: (+r.high  / gramDivisor) * karatFactor,
-      l: (+r.low   / gramDivisor) * karatFactor,
-      c: (+r.close / gramDivisor) * karatFactor,
+      o: (+r.open  / divisor) * karatFactor,
+      h: (+r.high  / divisor) * karatFactor,
+      l: (+r.low   / divisor) * karatFactor,
+      c: (+r.close / divisor) * karatFactor,
       _real: true
     }));
 }
 
 async function loadData(params) {
-  await ensureSynced();
+  // Ask sync to fill the selected month up to today (for the current month)
+  try {
+    const isCurrentMonth = params.month === new Date().toISOString().slice(0,7);
+    await ensureSynced({ from: params.firstDay, to: params.lastDay, inclusiveToday: isCurrentMonth });
+  } catch(_) {}
   const rows = await fetchOhlcRange({ from: params.firstDay, to: params.lastDay });
-  return convertRows(rows, params.karatFactor);
+  console.debug('[gold-chart] API returned rows:', rows.length, rows?.[0]);
+  const conv = convertRows(rows, params.karatFactor);
+  console.debug('[gold-chart] Converted rows:', conv.length, conv?.[0]);
+  return conv;
 }
 
 // Generate all YYYY-MM-DD strings inclusive
@@ -131,7 +157,7 @@ function initPanTipFader(chart) {
   chart.$panTip = { show: showTip };
 }
 
-export async function createGoldChart(params, { mountId='goldChartCanvas', emptyId='goldChartEmpty' } = {}) {
+export async function createGoldChart(params, { mountId='goldChartCanvas', emptyId='goldChartEmpty', fillMonth=false } = {}) {
   const canvas = document.getElementById(mountId);
   const empty = document.getElementById(emptyId);
   if (!canvas) return null;
@@ -153,8 +179,8 @@ export async function createGoldChart(params, { mountId='goldChartCanvas', empty
     return null;
   }
 
-  // Fill missing days (set fillFuture: false to NOT create flat future candles in current month)
-  const fullData = ensureFullMonth(baseData, params, { fillFuture: true });
+  // Optionally fill month with synthetic flat bars; default is off for a cleaner look
+  const fullData = fillMonth ? ensureFullMonth(baseData, params, { fillFuture: false }) : baseData;
 
   await waitFinancial();
   empty.style.display = 'none';
@@ -180,7 +206,7 @@ export async function createGoldChart(params, { mountId='goldChartCanvas', empty
   return chart;
 }
 
-export async function reloadGoldChart(chart, params) {
+export async function reloadGoldChart(chart, params, { fillMonth=false } = {}) {
   if (!chart) return;
   const empty = document.getElementById('goldChartEmpty');
   const canvas = document.getElementById('goldChartCanvas');
@@ -204,7 +230,7 @@ export async function reloadGoldChart(chart, params) {
     return;
   }
 
-  const fullData = ensureFullMonth(baseData, params, { fillFuture: true });
+  const fullData = fillMonth ? ensureFullMonth(baseData, params, { fillFuture: false }) : baseData;
   const ds = chart.data.datasets?.[0];
   if (ds) {
     if (chart.config.type === 'candlestick') {
@@ -218,6 +244,17 @@ export async function reloadGoldChart(chart, params) {
     const { start, end } = calcMonthBounds(params.month);
     chart.options.scales.x.min = start;
     chart.options.scales.x.max = end;
+  }
+  // Dynamically fit Y to data with padding
+  if (chart.options.scales?.y) {
+    const values = (fullData || []).flatMap(d => [d.o, d.h, d.l, d.c]).filter(v => Number.isFinite(v));
+    if (values.length) {
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const pad = Math.max(1, (max - min) * 0.06);
+      chart.options.scales.y.min = min - pad;
+      chart.options.scales.y.max = max + pad;
+    }
   }
   chart.options.plugins.title.text = `Gold OHLC (${params.karat}K • PHP/gram) — ${params.month}`;
 

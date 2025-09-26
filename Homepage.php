@@ -9,6 +9,7 @@ $ipLog = log_request_ip('home');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gold Nail in Your Area</title>
   <link rel="stylesheet" href="Homepage.css">
+  <link rel="stylesheet" href="chat.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 </head>
@@ -19,7 +20,7 @@ $ipLog = log_request_ip('home');
   <header>
     <div class="container header-content-padding flex justify-between items-center">
       <div class="flex items-center">
-        <span class="icon-gem" aria-hidden="true"></span>
+        <img src="IMG/N.png" alt="Logo of Gold Nail" style="width:40px; height:40px; border-radius:20%; margin-right:10px;">
         <span class="gold-text">Gold Nail</span>
       </div>
       <nav>
@@ -72,16 +73,18 @@ $ipLog = log_request_ip('home');
 
     <section id="contact">
       <div class="container">
-        <div class="section-title">Contact Us</div>
-        <form id="contactForm" class="contact-form" method="POST" action="admin.php">
-          <label class="form-label" for="name">Name</label>
-          <input type="text" id="name" name="name" class="form-input" required>
-          <label class="form-label" for="number">Number</label>
-          <input type="tel" id="number" name="number" class="form-input" required>
-            <label class="form-label" for="message">Message</label>
-          <textarea id="message" name="message" class="form-input" required></textarea>
-          <button type="submit" class="btn btn-gold" style="width:100%;">Send Message</button>
-        </form>
+        <div class="section-title">Our Location</div>
+        
+        <div class="iframe-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d482.6843036880481!2d121.0133533!3d14.5720211!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c9164c63f61b%3A0x39973fd687f82d4b!2sGold%20Nail!5e0!3m2!1sen!2sph!4v1757685412853!5m2!1sen!2sph"
+            height="450px"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Gold Nail Location Map">
+          </iframe>
+        </div>
       </div>
     </section>
   </main>
@@ -123,7 +126,42 @@ $ipLog = log_request_ip('home');
   <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
     <i class="fas fa-moon"></i>
   </button>
+
+  <!-- Chat Widget -->
+  <div id="chatbot-icon" title="Chat with us!"></div>
+
+  <!-- Chat Container -->
+  <div id="chat-container" class="hidden">
+      <div class="chat-header">
+          <div class="chat-title">Gold Nail Support</div>
+          <button class="close-chat">&times;</button>
+      </div>
+      <div id="chat-box">
+          <div id="chat-history">
+              <div class="welcome-message">
+                  👋 Hello! I'm here to help you with any questions about Gold Nail's services, gold prices, or appointments. How can I assist you today?
+              </div>
+              <div class="quick-actions">
+                  <button class="quick-action-btn" data-message="What are your current gold prices?">Gold Prices</button>
+                  <button class="quick-action-btn" data-message="How can I sell my gold?">Sell Gold</button>
+                  <button class="quick-action-btn" data-message="What are your business hours?">Hours</button>
+                  <button class="quick-action-btn" data-message="Where are you located?">Location</button>
+              </div>
+          </div>
+          <div class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+          </div>
+      </div>
+      <div id="chat-input-box">
+          <input type="text" id="chat-input" placeholder="Type your message here..." maxlength="500">
+          <button id="send-button">Send</button>
+      </div>
+  </div>
+
   <script src="Homepage.js"></script>
+  <script src="chat.js"></script>
   <script src="backend/scripts/goldAdmin.js"></script>
   <script src="backend/scripts/email/testEmailHelper.js"></script>
 </body>

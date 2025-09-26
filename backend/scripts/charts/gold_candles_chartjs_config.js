@@ -47,6 +47,16 @@
     const xMin = typeof o.monthRangeStart === 'number' ? o.monthRangeStart : undefined;
     const xMax = typeof o.monthRangeEnd === 'number' ? o.monthRangeEnd : undefined;
 
+    // Compute y-range from data to use more vertical space
+    const yValues = (seriesData || []).flatMap(d => [d.o, d.h, d.l, d.c]).filter(v => Number.isFinite(v));
+    const yMinData = yValues.length ? Math.min(...yValues) : undefined;
+    const yMaxData = yValues.length ? Math.max(...yValues) : undefined;
+    const pad = (yMinData !== undefined && yMaxData !== undefined)
+      ? Math.max(1, (yMaxData - yMinData) * 0.06)
+      : 0;
+    const yMin = (yMinData !== undefined) ? yMinData - pad : undefined;
+    const yMax = (yMaxData !== undefined) ? yMaxData + pad : undefined;
+
     function dayTickFormatter(value) {
       try {
         return luxon.DateTime.fromMillis(value, { zone: 'utc' }).toFormat(o.dayLabelFormat);
@@ -81,6 +91,11 @@
     if (!Chart.registry.plugins.get('forceDailyTicks')) {
       Chart.register(forceDailyTicksPlugin);
     }
+
+    const peso = (n) => {
+      const v = Number(n);
+      return '₱' + (isFinite(v) ? v.toLocaleString(undefined, { maximumFractionDigits: 2 }) : '—');
+    };
 
     return {
       type: chartType,
@@ -118,13 +133,13 @@
                 if (hasCandlestick) {
                   const r = ctx.raw || {};
                   return [
-                    `Open:  ${Number(r.o).toLocaleString()}`,
-                    `High:  ${Number(r.h).toLocaleString()}`,
-                    `Low:   ${Number(r.l).toLocaleString()}`,
-                    `Close: ${Number(r.c).toLocaleString()}`
+                    `Open:  ${peso(r.o)}`,
+                    `High:  ${peso(r.h)}`,
+                    `Low:   ${peso(r.l)}`,
+                    `Close: ${peso(r.c)}`
                   ];
                 }
-                return `Close: ${Number(ctx.parsed.y).toLocaleString()}`;
+                return `Close: ${peso(ctx.parsed.y)}`;
               }
             }
           },
@@ -167,7 +182,12 @@
           },
           y: {
             grid: { color: o.grid },
-            ticks: { color: o.fg }
+            ticks: {
+              color: o.fg,
+              callback: (val) => peso(val)
+            },
+            suggestedMin: yMin,
+            suggestedMax: yMax
           }
         }
       }

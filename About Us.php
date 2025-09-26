@@ -7,23 +7,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="About Us.css">
 </head>
-<div id="contactModal" class="modal">
-  <div class="modal-content">
-    <span class="close" id="closeModal">&times;</span>
-    <h2>Contact Us</h2>
-    <form class="contact-form">
-      <label for="modal-name">Name</label>
-      <input type="text" id="modal-name" class="form-input" required>
-      <label for="modal-email">Email</label>
-      <input type="email" id="modal-email" class="form-input" required>
-      <label for="modal-message">Message</label>
-      <textarea id="modal-message" class="form-input" required></textarea>
-      <button type="submit" class="btn btn-gold" style="width:100%;">Send Message</button>
-    </form>
-  </div>
-</div>
 <body>
-    <header>
+    <!-- Site-wide notification bar -->
+    <div id="site-message" style="background: #ffd700; color: #222; padding: 12px 0; text-align: center; font-weight: bold; position: relative;">
+        Welcome to Gold Nail! Enjoy our trusted gold services since 2010.
+        <span id="close-site-message" style="position:absolute; right:20px; top:0; cursor:pointer; font-size:20px;">&times;</span>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Contact Us</h2>
+        <form class="contact-form">
+          <label for="modal-name">Name</label>
+          <input type="text" id="modal-name" class="form-input" required>
+          <label for="modal-email">Email</label>
+          <input type="email" id="modal-email" class="form-input" required>
+          <label for="modal-message">Message</label>
+          <textarea id="modal-message" class="form-input" required></textarea>
+          <button type="submit" class="btn btn-gold" style="width:100%;">Send Message</button>
+        </form>
+      </div>
+    </div>
+    <header id="about-header" data-index="0">
+        <!-- Back Button (top left, absolute position, arrow only) -->
+        <button onclick="window.history.back()" class="back-btn back-btn-top" aria-label="Back">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <img src="IMG\N.png" alt="Logo of Gold Nail">
         <h1 class="fade-in">Our Story</h1>
         <p class="fade-in delay-1">Discover the passion and effort in each services</p>
         <a href="#contact" class="btn fade-in delay-2" id="contactBtn">Contact Us</a>
@@ -102,8 +114,8 @@
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="Homepage.php">Home</a></li>
-                        <li><a href="Sell Gold.php">Sell Gold</a></li>
-                        <li><a href="About Us.php">About us</a></li>
+                        <li><a href="SellGold.php">Sell Gold</a></li>
+                        <li><a href="About Us.php">About Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">

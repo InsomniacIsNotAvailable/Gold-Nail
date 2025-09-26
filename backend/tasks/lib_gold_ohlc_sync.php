@@ -127,6 +127,28 @@ function sync_ohlc_for_date(string $date, string $base = 'XAU', string $currency
         throw new RuntimeException("Provider payload missing OHLC (keys: $topKeys)");
     }
 
+    // Convert unit if needed (provider unit -> store unit)
+    $providerUnit = strtolower((string)($metalCfg['unit'] ?? 'ounce'));
+    $storeUnit    = strtolower((string)($metalCfg['store_unit'] ?? 'gram'));
+    if ($providerUnit !== $storeUnit) {
+        // Known conversions between ounce and gram
+        $OZ_TO_G = 31.1034768; // troy ounce to gram
+        $convert = null;
+        if (in_array($providerUnit, ['ounce','troy_ounce','oz'], true) && in_array($storeUnit, ['gram','g'], true)) {
+            // provider in PHP per ounce -> PHP per gram
+            $convert = function($v) use ($OZ_TO_G) { return (float)$v / $OZ_TO_G; };
+        } elseif (in_array($providerUnit, ['gram','g'], true) && in_array($storeUnit, ['ounce','troy_ounce','oz'], true)) {
+            // provider in PHP per gram -> PHP per ounce
+            $convert = function($v) use ($OZ_TO_G) { return (float)$v * $OZ_TO_G; };
+        }
+        if ($convert) {
+            $oh['open']  = $convert($oh['open']);
+            $oh['high']  = $convert($oh['high']);
+            $oh['low']   = $convert($oh['low']);
+            $oh['close'] = $convert($oh['close']);
+        }
+    }
+
     // Upsert into DB
     $conn = get_connection();
     @$conn->query("CREATE TABLE IF NOT EXISTS gold_ohlc (
@@ -139,10 +161,13 @@ function sync_ohlc_for_date(string $date, string $base = 'XAU', string $currency
         UNIQUE KEY uq_gold_ohlc_date (`date`)
     )");
 
-    $sql = "INSERT INTO gold_ohlc (`date`, `open`, `high`, `low`, `close`)
-            VALUES (?, ?, ?, ?, ?)
-            ON DUPLICATE KEY UPDATE
-              `open`=VALUES(`open`), `high`=VALUES(`high`), `low`=VALUES(`low`), `close`=VALUES(`close`)";
+        $overwrite = (bool)($metalCfg['overwrite'] ?? false);
+        $sql = $overwrite
+                ? "INSERT INTO gold_ohlc (`date`, `open`, `high`, `low`, `close`)
+                        VALUES (?, ?, ?, ?, ?)
+                        ON DUPLICATE KEY UPDATE
+                            `open`=VALUES(`open`), `high`=VALUES(`high`), `low`=VALUES(`low`), `close`=VALUES(`close`)"
+                : "INSERT IGNORE INTO gold_ohlc (`date`, `open`, `high`, `low`, `close`) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if (!$stmt) { $conn->close(); throw new RuntimeException('DB prepare failed'); }
 
