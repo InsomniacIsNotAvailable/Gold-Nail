@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php
+  $BASE = rtrim(str_replace('\\','/', dirname($_SERVER['SCRIPT_NAME'])), '/');
+  if ($BASE === '/' || $BASE === '\\') $BASE = '';
+?>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gold Nail Appointments</title>
+  <link rel="stylesheet" href="<?= $BASE ?>/Admin.css?v=3">
+  <link rel="stylesheet" href="<?= $BASE ?>/mods/ui/party-dark.css?v=1">
+  <link rel="stylesheet" href="<?= $BASE ?>/mods/ui/appointment-details.css?v=3">
+  <link rel="stylesheet" href="<?= $BASE ?>/mods/ui/better-appointment-ui-buttons.css?v=3">
+  <link rel="stylesheet" href="<?= $BASE ?>/mods/ui/party-transitions.css?v=1">
+</head>
+<body>
+    <!-- Side Panel - Reusing the structure from Admin.html/Admin.php -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="h-8 w-8 text-yellow-300">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9v-2h2v2zm0-4H9V7h2v6z"></path>
+                </svg>
+            </div>
+            <div class="sidebar-title">Gold Nail Admin</div>
+        </div>
+        <div class="user-profile">
+            <img src="https://placehold.co/60x60/3498db/ffffff?text=AD" alt="Admin Avatar" class="user-avatar">
+            <div class="user-info">
+                <span class="user-name">Admin User</span>
+                <span class="user-role">Administrator</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="Admin.php">
+                    <svg viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                    <span>Dashboard</span>
+                </a></li>
+                <li><a href="#" class="active">
+                    <svg viewBox="0 0 20 20"><path d="M7 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zM14 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"></path></svg>
+                    <span>Appointments</span>
+                </a></li>
+                <li><a href="#">
+                    <svg viewBox="0 0 20 20"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17.555 17.075a4 4 0 11-6.91 0A8.995 8.995 0 0110 18a8.995 8.995 0 01-3.555-1.925zM15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span>Customers</span>
+                </a></li>
+                <li><a href="#">
+                    <svg viewBox="0 0 20 20"><path d="M7 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zM14 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"></path></svg>
+                    <span>Services</span>
+                </a></li>
+                <li><a href="#">
+                    <svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4-4h4l1-1 1-1.257A6 6 0 0118 8zM14.257 6.09a1 1 0 01-1.414 1.414L12 6.414V10a1 1 0 01-2 0V6.414l-1.843 1.843a1 1 0 01-1.414-1.414L10 3.586l4.257 4.257z" clip-rule="evenodd"></path></svg>
+                    <span>Products</span>
+                </a></li>
+                <li><a href="#">
+                    <svg viewBox="0 0 20 20"><path d="M13 7H7v6h6V7z"></path><path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h4V3a1 1 0 112 0v1h2a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h2V3a1 1 0 011-1zm0 12v4h6v-4H7z" clip-rule="evenodd"></path></svg>
+                    <span>Reports</span>
+                </a></li>
+                <li><a href="#">
+                    <svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 00-2.286.947c-.07.443-.756.126-1.234-.209A1.532 1.532 0 002.4 9.115c-.206.582-.104 1.244.223 1.554a1.532 1.532 0 00.58 2.22c.39.333.214.936-.08 1.266a1.532 1.532 0 00-.716 2.25c-.5.176-.81.55-.944 1.234.07.443.756.126 1.234-.209a1.532 1.532 0 002.286.947c.38 1.56 2.6 1.56 2.98 0a1.532 1.532 0 002.286-.947c.07-.443.756-.126 1.234.209a1.532 1.532 0 001.488-.874c.206-.582.104-1.244-.223-1.554a1.532 1.532 0 00-.58-2.22c-.39-.333-.214-.936.08-1.266a1.532 1.532 0 00-.716-2.25c-.5-.176-.81-.55-.944-1.234a1.532 1.532 0 00-2.286-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
+                    <span>Settings</span>
+                </a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <header class="header">
+            <h1>Appointment Management</h1>
+            <div class="header-actions">
+                <span>Welcome, Admin!</span>
+                <button class="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <section class="demographics-section">
+            <h2>Appointment Overview</h2>
+            <div class="demographics-grid">
+                <div class="metric-card visits">
+                    <div class="card-header">
+                        <h3>Total Appointments</h3>
+                        <svg viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                    </div>
+                    <p id="totalAppointments" class="metric-value">0</p>
+                    <p class="metric-description">All scheduled appointments</p>
+                </div>
+                <div class="metric-card concerns">
+                    <div class="card-header">
+                        <h3>Pending Appointments</h3>
+                        <svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                    </div>
+                    <p id="pendingAppointments" class="metric-value">0</p>
+                    <p class="metric-description">Appointments awaiting confirmation</p>
+                </div>
+                <div class="metric-card add-concern">
+                    <h3 class="card-header-title">Schedule New Appointment</h3>
+                    <button id="addAppointmentBtn" class="add-concern-btn">
+                        <svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
+                        Add Appointment
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-concerns-section">
+            <div class="table-header">
+                <span class="section-title">Upcoming Appointments</span>
+                <button id="filterAppointmentsBtn" class="filter-btn" type="button">Filter</button>
+            </div>
+            <div class="divider-line"></div>
+
+            <div class="concerns-table-container">
+                <table class="concerns-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Customer</th>
+                            <th>Purpose</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentsTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Adding Appointment -->
+    <div id="addAppointmentModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="closeModalBtn">&times;</button>
+            <h3>Schedule New Appointment</h3>
+            <form id="appointmentForm" novalidate>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointment_datetime">Appointment Date & Time:</label>
+                    <select id="appointment_datetime" required>
+                        <option value="" disabled selected>Select a Date and Time</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="purpose">Purpose of Visit:</label>
+                    <select id="purpose" required>
+                        <option value="" disabled selected>Select a Reason</option>
+                        <option value="Consultation">Consultation</option>
+                        <option value="Service">Service</option>
+                        <option value="Inquiry">Inquiry</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message (Optional):</label>
+                    <textarea id="message"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn cancel" id="cancelAppointmentBtn">Cancel</button>
+                    <button type="submit" class="modal-btn submit">Add Appointment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="backend/scripts/api/appointCaller.js"></script>
+    <script src="backend/scripts/ui/AppointmentDetailsModal.js"></script>
+    <script src="backend/scripts/ui/PartyMode.js"></script>
+    <script src="backend/scripts/ui/StatusDropdown.js"></script>
+    <!-- Populate appointment_datetime options to mirror public form -->
+    <script>window.DISABLE_SCHEDULE_SUBMIT = true;</script>
+    <script src="backend/scripts/shedule.js"></script>
+    <script src="backend/scripts/pages/appointmentpage.js"></script>
+    <script type="module" src="backend/scripts/ui/TableFilterSort.js"></script>
+</body>
+</html>

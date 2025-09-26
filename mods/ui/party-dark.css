@@ -1,0 +1,218 @@
+/* Party Dark Mode: activates when body has .rgb-playing */
+
+/* Base driven by tokens: background = darkneutral-1200, foreground = darkneutral-1400 */
+body.rgb-playing {
+  /* set tokens for this mode */
+  --darkneutral-1200: #111111;  /* background */
+  --darkneutral-1400: #222222;  /* foreground */
+
+  background: var(--darkneutral-1200);
+  color: var(--darkneutral-1400);
+}
+body.rgb-playing .main-content {
+  background: #141414;              /* dark gray canvas behind panels */
+}
+
+/* Panels on top: lighter gray so they pop against the canvas */
+body.rgb-playing .header,
+body.rgb-playing .metric-card,
+body.rgb-playing .recent-concerns-section,
+body.rgb-playing .modal-content {
+  background: #2a2a2a;              /* lighter than canvas */
+  color: #f3f4f6;
+  border: 1px solid #3a3a3a;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* Remove background fill from metric cards in Party Mode */
+body.rgb-playing .metric-card {
+  background: var(--on-foreground); /* override earlier background rules */
+}
+
+/* Make section headings readable on dark */
+body.rgb-playing .demographics-section h2,
+body.rgb-playing .recent-concerns-section h2 {
+  color: #fafafa;
+  border-bottom-color: #3a3a3a;
+}
+
+/* Header small text (Welcome, Admin!) */
+body.rgb-playing .header-actions span {
+  color: #e6e6e6;
+}
+
+/* Card titles and labels (e.g., Schedule New Appointment) */
+body.rgb-playing .add-concern .card-header-title,
+body.rgb-playing .card-header h3 {
+  color: #eaeaea;
+}
+
+/* Keep cards/sections dark and separated */
+body.rgb-playing .header,
+body.rgb-playing .metric-card,
+body.rgb-playing .recent-concerns-section {
+  background: #0f172a;            /* darker than #1f1f1f canvas */
+  color: #e6e6e6;
+  border: 1px solid #1e293b;      /* subtle edge */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+    
+/* Table header + cells on dark */
+body.rgb-playing .concerns-table th,
+body.rgb-playing .concerns-table td {
+  color: #f0f0f0;
+  background: transparent;
+  border-bottom: 1px solid #3a3a3a !important;
+  background-image: none !important;
+}
+body.rgb-playing .concerns-table th {
+  background: #2f2f2f;
+  border-top: 1px solid #3a3a3a !important;
+  border-bottom: 1px solid #3a3a3a !important;
+}
+body.rgb-playing .concerns-table tbody tr:hover {
+  background: #0b1220;
+}
+
+/* Customer cell layout and play button (dark) */
+body.rgb-playing .concerns-table .customer-name { color: #f3f4f6; }
+body.rgb-playing .concerns-table .yt-inline-play {
+  background: #0f172a;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+body.rgb-playing .concerns-table .yt-inline-play:hover {
+  background: #111827;
+  border-color: #4b5563;
+}
+
+/* Inline player frame (keeps rounded look) */
+body.rgb-playing .concerns-table .yt-inline .yt-player {
+  border-radius: 8px;
+}
+
+/* Forms (in add modal and details modal) */
+body.rgb-playing .form-group label { color: #e5e7eb; }
+body.rgb-playing .form-group input[type="date"],
+body.rgb-playing .form-group input[type="text"],
+body.rgb-playing .form-group input[type="email"],
+body.rgb-playing .form-group input[type="tel"],
+body.rgb-playing .form-group textarea,
+body.rgb-playing .form-group select,
+body.rgb-playing #appointmentDetailsModal .form-group p {
+  background: #0b1220;
+  color: #e5e7eb;
+  border: 1px solid #374151;
+}
+body.rgb-playing .form-group input:focus,
+body.rgb-playing .form-group textarea:focus,
+body.rgb-playing .form-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}
+
+/* Modal */
+body.rgb-playing .modal-content h3 { color: #f3f4f6; }
+body.rgb-playing .modal-btn.cancel { background: #6b7280; }
+body.rgb-playing .modal-btn.cancel:hover { background: #4b5563; }
+body.rgb-playing .modal-btn.submit { background: #22c55e; }
+body.rgb-playing .modal-btn.submit:hover { background: #16a34a; }
+
+/* Status dropdown (edit) */
+body.rgb-playing .status-dropdown {
+  background: #0f172a;
+  color: #e5e7eb;
+  border: 1px solid #374151;
+}
+body.rgb-playing .status-dropdown .status-item { color: #e5e7eb; }
+body.rgb-playing .status-dropdown .status-item:hover,
+body.rgb-playing .status-dropdown .status-item:focus { background: #111827; }
+body.rgb-playing .status-dropdown .status-item.is-current { background: #1f2937; }
+body.rgb-playing .status-dropdown .status-item[data-status="Cancelled"] { color: #94a3b8; }
+
+/* Links */
+body.rgb-playing a { color: #93c5fd; }
+body.rgb-playing a:hover { color: #bfdbfe; }
+
+/* Table column widths (keep tight actions/status) */
+body.rgb-playing .concerns-table th:nth-child(6),
+body.rgb-playing .concerns-table td:nth-child(6),
+body.rgb-playing .concerns-table th:nth-child(5),
+body.rgb-playing .concerns-table td:nth-child(5) {
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* Ensure titles stay readable on the darker panels */
+body.rgb-playing .header h1,
+body.rgb-playing .card-header h3,
+body.rgb-playing .add-concern .card-header-title,
+body.rgb-playing .recent-concerns-section h2 {
+  color: #eaf2ff;
+}
+
+/* Controls on panels remain legible */
+body.rgb-playing .add-concern-btn { background: #2b6be6; }
+body.rgb-playing .add-concern-btn:hover { background: #1f4fb3; }
+body.rgb-playing .logout-btn { background: #e23d3d; }
+body.rgb-playing .logout-btn:hover { background: #b52f2f; }
+
+/* Panels in Party Mode (consolidated) */
+body.rgb-playing { --on-foreground: #f5f5f5; }
+
+/* Foreground panels */
+body.rgb-playing .header,
+body.rgb-playing .recent-concerns-section {
+  background: var(--darkneutral-1400, #222222);
+  color: var(--on-foreground);
+  border: 1px solid #2f2f2f;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* Modal stays lighter panel */
+body.rgb-playing .modal-content {
+  background: #2a2a2a;
+  color: #f3f4f6;
+  border: 1px solid #3a3a3a;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* Metric cards: no fill, but still elevated */
+body.rgb-playing .metric-card {
+  background: none; /* intentionally no fill */
+  color: var(--on-foreground, #f5f5f5);
+  border: 1px solid #2f2f2f;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* Prevent horizontal overflow in dark mode (correct placement) */
+html { overflow-x: hidden; } /* avoids stray horizontal scroll */
+body.rgb-playing { overflow-x: hidden; }
+body.rgb-playing .main-content { min-width: 0; } /* flex child can shrink */
+
+body.rgb-playing :where(
+  .header,
+  .metric-card,
+  .recent-concerns-section,
+  .modal-content,
+  .form-group p,
+  .yt-chip,
+  .add-concern-btn,
+  .logout-btn,
+  .status-dropdown,
+  .filter-btn
+) {
+  box-sizing: border-box;  /* borders/animations don’t expand layout */
+  max-width: 100%;
+}
+
+body.rgb-playing .sidebar {
+  box-sizing: border-box;  /* keep fixed-width sidebar stable */
+}
+
+/* Ensure dropdown never shifts layout; keep it overlay-only */
+body.rgb-playing .status-dropdown {
+  position: absolute !important;
+  box-sizing: border-box;
+  max-width: min(360px, calc(100vw - 16px));
+}

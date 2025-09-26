@@ -1,0 +1,158 @@
+/* Appointments table action button overrides */
+
+:root {
+  /* Tweak to match your palette */
+  --details-blue: #2e86de;
+  --details-blue-hover: #2269ae;
+  --edit-green: #1e8449;
+  --edit-green-hover: #16673a;
+  --delete-red: #c0392b;
+  --delete-red-hover: #a93226;
+}
+
+.concerns-table .action-btn {
+  appearance: none;
+  border: 0;
+  box-shadow: none;
+  background: #444; /* default, overridden per button */
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  height: 32px;
+  min-width: 96px;
+  padding: 0 12px;
+  border-radius: 6px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color .15s ease, opacity .15s ease;
+}
+
+.concerns-table .action-btn + .action-btn { margin-left: 8px; }
+/* Details: flat blue */
+.concerns-table .action-btn.details-btn { background: var(--details-blue); }
+.concerns-table .action-btn.details-btn:hover { background: var(--details-blue-hover); }
+/* Edit: flat green */
+.concerns-table .action-btn.edit-btn { background: var(--edit-green); }
+.concerns-table .action-btn.edit-btn:hover { background: var(--edit-green-hover); }
+/* Delete: flat red */
+.concerns-table .action-btn.delete-btn { background: var(--delete-red); }
+.concerns-table .action-btn.delete-btn:hover { background: var(--delete-red-hover); }
+/* Accessible focus */
+.concerns-table .action-btn:focus-visible {
+  outline: 2px solid rgba(255,255,255,.7);
+  outline-offset: 2px;
+}
+
+/* Keep the Actions column tight */
+.concerns-table th:nth-child(6),
+.concerns-table td:nth-child(6) {
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* NEW: Make status badges the same size as action buttons */
+.concerns-table .status-badge,
+.concerns-table .status-new,
+.concerns-table .status-in-progress,
+.concerns-table .status-resolved,
+.concerns-table .status-cancelled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;         /* match buttons */
+  min-width: 96px;      /* match buttons */
+  padding: 0 12px;      /* match buttons */
+  border-radius: 6px;   /* match buttons */
+  font-weight: 700;     /* match buttons */
+  font-size: 0.9rem;    /* match buttons */
+  line-height: 1;       /* match buttons */
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+/* Icon-only play button after customer name */
+.concerns-table .yt-inline-play {
+  appearance: none;
+  border: 1px solid #d0d7de;
+  background: #fff;
+  color: #1f2937;
+  width: 28px;
+  height: 28px;
+  margin-left: 6px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.concerns-table .yt-inline-play:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+.concerns-table .yt-inline-play svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+.concerns-table tr.playing .yt-inline-play {
+  color: #e11d48; /* subtle active tint when playing */
+}
+
+/* Keep customer name and play button on one line; wrap only when needed */
+.concerns-table .customer-cell {
+  display: flex;
+  flex-direction: row !important;   /* override any column layout */
+  flex-wrap: wrap;                  /* allow wrap when tight */
+  justify-content: flex-start;
+  align-items: baseline;            /* align triangle with text baseline */
+  gap: 6px;
+  text-align: left;
+}
+
+/* Do not grow the name; allow it to wrap naturally */
+.concerns-table .customer-cell .customer-name {
+  flex: 0 1 auto;                   /* was 1 1 auto (pushed button to far edge) */
+  min-width: 0;
+  white-space: normal;
+  display: inline;                  /* keep inline text flow */
+}
+
+/* Keep the triangle inline with the name on the first line */
+.concerns-table .customer-cell .yt-inline-play {
+  flex: 0 0 auto;
+  align-self: baseline;
+}
+
+/* Force the embedded player to the next line under name+button */
+.concerns-table .customer-cell .yt-inline {
+  order: 2;
+  flex: 0 0 100%;
+  width: 100%;
+  margin-top: 6px;
+}
+
+/* Expandable player row under the clicked appointment */
+.concerns-table tr.yt-expand td {
+  padding: 0 15px 15px 15px;   /* space for the player */
+  background: transparent;
+  border-top: 0 !important;
+}
+
+.concerns-table tr.yt-expand .yt-inline {
+  width: 100%;
+  display: block;
+}
+
+.concerns-table tr.yt-expand .yt-player {
+  display: block;
+  width: 100%;
+  max-width: 960px;            /* cap very wide screens */
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 8px;
+  margin: 8px auto 0;          /* center under the row */
+}
