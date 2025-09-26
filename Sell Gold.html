@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Nail - Buy & Sell Gold and Accessories</title>
+    <link rel="stylesheet" href="SellGold.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="announcement-bar" role="region" aria-label="Announcement">
+      We ensure safe and secure transactions for your items
+    </div>
+    <header>
+      <div class="container header-content-padding flex justify-between items-center">
+        <div class="flex items-center">
+          <span class="icon-gem" aria-hidden="true"></span>
+          <span class="gold-text">Gold Nail</span>
+        </div>
+        <nav>
+          <a href="Homepage.html" class="nav-link">Home</a>
+          <a href="Sell Gold.html" class="nav-link current-page">Gold Prices</a>
+          <a href="About Us.html" class="nav-link">About Us</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+        <h1>Your Trusted Gold Partner</h1>
+        <p>Get the best value for your gold and browse our exquisite collection of gold accessories</p>
+        <div>
+            <a href="#services" class="btn">Our Services</a>
+            <a href="#sell-gold-process" class="btn" style="margin-left: 1rem; background-color: white; color: var(--dark);">Sell Your Gold</a>
+        </div>
+    </section>
+
+    <section id="services" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services">
+                <div class="service-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9b124b5a-0aaf-4294-b22a-a59bb8590bb2.png" alt="Gold buyer inspecting jewelry with magnifying glass in professional setting">
+                    <div class="service-content">
+                        <h3>Gold Buying</h3>
+                        <p>We offer competitive rates for your gold items with instant payment. Our experts will assess your gold's purity and weight to give you the best price.</p>
+                        <a href="#sell-gold-process" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2c7a12ec-9e3f-4e0e-8315-446e4390a82e.png" alt="Gold coins and bars displayed on velvet cloth under warm lighting">
+                    <div class="service-content">
+                        <h3>Gold Selling</h3>
+                        <p>Purchase certified gold accessories and nuggets at market prices. All our gold comes with purity certification and secure storage options.</p>
+                        <a href="#accessories" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-862f1-2a93ccde5887/image/d60212f2-a1f6-4b2c-912c-44cf67eecd10.png" alt="Collection of gold jewelry including necklaces, rings and bracelets on display">
+                    <div class="service-content">
+                        <h3>Gold Services</h3>
+                        <p>handles gold piece and accessory with precision and care</p>
+                        <a href="About Us.html#services-section" class="btn">View Services</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="section-padding" style="background-color: var(--light-gold);">
+        <div class="container">
+            <h2 class="section-title">Gold Value Calculator</h2>
+            <div class="calculator-card">
+                <p class="current-price-info">Current Gold Price (24K, per gram): <span id="currentGoldPrice">₱3,900.00</span></p>
+                <div class="form-group">
+                    <label for="goldKarat">Gold Karat:</label>
+                    <select id="goldKarat">
+                        <option value="24">24K (99.9%)</option>
+                        <option value="22">22K (91.6%)</option>
+                        <option value="21">21K (87.5%)</option>
+                        <option value="18">18K (75.0%)</option>
+                        <option value="14">14K (58.3%)</option>
+                        <option value="10">10K (41.7%)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="goldWeight">Weight (grams):</label>
+                    <input type="number" id="goldWeight" min="0.1" step="0.1" placeholder="e.g., 5.0">
+                </div>
+                <button id="calculateBtn" class="btn btn-gold-calc">Calculate Value</button>
+                <div class="calculation-result">
+                    <h3>Estimated Value:</h3>
+                    <p id="estimatedValue" class="value-display">₱0.00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sell-gold-process" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">How To Sell Your Gold</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <h3>Schedule an Appointment</h3>
+                    <p>Book a convenient time to visit our store. Our online scheduling system makes it easy to find a time that works for you.</p>
+                </div>
+                <div class="step">
+                    <h3>Professional Evaluation</h3>
+                    <p>Our esteemed goldsmith will carefully assess your gold items using testing equipments to determine purity and weight. The evaluation takes about 2-5 minutes.</p>
+                </div>
+                <div class="step">
+                    <h3>Receive Offer</h3>
+                    <p>Based on current market prices and your gold's characteristics, we'll make you a fair, transparent cash offer with no obligations.</p>
+                </div>
+                <div class="step">
+                    <h3>Get Paid</h3>
+                    <p>If you accept our offer, we'll process payment immediately via your preferred method (cash, check, bank transfer, or store credit with a 10% bonus).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="section-padding" style="background-color: var(--light-gold);">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq">
+                <div class="faq-item">
+                    <div class="faq-question">How do you determine the value of my gold? <i class="fas fa-chevron-down faq-icon"></i></div>
+                    <div class="faq-answer">
+                        <p>We consider three main factors: 1) The current market price of gold (which fluctuates daily), 2) The purity of your gold (measured in karats), and 3) The weight of your items. Our goldsmiths use professional equipment for precise measurements.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What types of gold do you buy? <i class="fas fa-chevron-down faq-icon"></i></div>
+                    <div class="faq-answer">
+                        <p>We buy all types of gold, including jewelry (rings, necklaces, bracelets, earrings), coins, dental gold, and scrap gold. We accept gold in various purities (10K, 14K, 18K, 21K, 22K, 24K).</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do I need an appointment? <i class="fas fa-chevron-down faq-icon"></i></div>
+                    <div class="faq-answer">
+                        <p>While appointments are recommended for faster service, walk-ins are always welcome during our business hours. You can schedule an appointment through our website or by calling us.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I get paid? <i class="fas fa-chevron-down faq-icon"></i></div>
+                    <div class="faq-answer">
+                        <p>We offer instant cash payments. For larger transactions, we can also arrange for bank transfers, checks, or store credit with a 10% bonus for future purchases.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="accessories" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Our Exquisite Gold Accessories</h2>
+            <div class="accessories-grid">
+                <div class="accessory-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fb828a2b-102e-4861-829d-4767e7c858be.png" alt="Elegant gold necklace with a intricate pendant, resting on a dark, reflective surface.">
+                    <h3>Necklaces</h3>
+                    <p>Explore our stunning collection of gold necklaces, from delicate chains to bold statement pieces.</p>
+                </div>
+                <div class="accessory-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/48592965-02fb-4841-8f55-73895a9e339d.png" alt="A pair of shimmering gold hoop earrings, showcasing a modern, sleek design with a polished finish.">
+                    <h3>Earrings</h3>
+                    <p>Discover a variety of gold earrings, including hoops, studs, and dangles, perfect for any occasion.</p>
+                </div>
+                <div class="accessory-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ed829871-edb0-4ecb-93ff-153314cf2c59.png" alt="A classic gold wedding band, simple and elegant, reflecting soft light on its smooth surface.">
+                    <h3>Rings</h3>
+                    <p>Find the perfect gold ring, from timeless bands to exquisite engagement and cocktail rings.</p>
+                </div>
+                <div class="accessory-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/41a13e59-1994-436f-b145-29654516cefb.png" alt="A stylish gold bracelet with delicate links and a secure clasp, draped gracefully.">
+                    <h3>Bracelets</h3>
+                    <p>Adorn your wrist with our beautiful gold bracelets, available in various designs and karats.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Gold Nail</h3>
+                    <p>Your trusted partner for gold transactions and accessories since 2010.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#sell-gold-process">Sell Gold</a></li>
+                        <li><a href="#accessories">Accessories</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column" id="contact-info">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>4740 la villa III unit 104 solchuaga street brgy tejeros makati city</li>
+                        <li>Landline: 83625478</li>
+                        <li>Phone Number: +639490561676 </li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Hours</h3>
+                    <ul>
+                        <li>Daily: 7am-8pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 Gold Nail. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="SellGold.js"></script>
+</body>
+</html>

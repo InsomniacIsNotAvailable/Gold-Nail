@@ -1,0 +1,731 @@
+/* SellGold.css changes */
+        :root {
+            --gold: #FFD700;
+            --dark-gold: #CFB53B;
+            --light-gold: #FFF8DC;
+            --dark: #222;
+            --light: #f8f8f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Dark mode styles for body */
+        body.dark-mode {
+          background-color: #1a1a1a;
+          color: #f5f5f5;
+        }
+
+        /* Homepage header styles copied directly */
+        .announcement-bar {
+          background: #222;
+          color: #f5f5f5;
+          font-weight: 600;
+          text-align: center;
+          padding: 12px 20px;
+          font-size: 0.95rem;
+          letter-spacing: 0.05em;
+          position: sticky;
+          top: 0;
+          z-index: 1100;
+          user-select: none;
+        }
+
+        header {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 40px; /* Stays below the announcement bar */
+            z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for dark mode */
+        }
+
+        /* Dark mode styles for header */
+        body.dark-mode header {
+          background: #2c2c2c;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+        }
+
+        .header-content-padding {
+            padding: 1.2rem 1rem;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Flexbox utilities from Homepage.css */
+        .flex {
+            display: flex;
+            gap: 2rem; /* Adjusted from Homepage.css for consistency, applied to .flex element */
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .justify-between {
+            justify-content: space-between;
+        }
+        .items-center {
+            align-items: center;
+        }
+
+        /* Logo and navigation styles copied directly from Homepage.css */
+        .gold-text {
+          background: linear-gradient(to right, #bfa14a, #e6d17e);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          font-size: 2rem;
+          font-weight: bold;
+          letter-spacing: 1px;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #bfa14a;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex; /* Ensure nav itself is flex */
+        }
+
+        .nav-link {
+            color: #444;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 1rem; /* Spacing between nav items */
+            transition: color 0.2s;
+            white-space: nowrap; /* Prevent links from wrapping */
+        }
+
+        /* Dark mode styles for nav links */
+        body.dark-mode .nav-link {
+          color: #ccc;
+        }
+
+        .nav-link:hover {
+            color: #bfa14a;
+        }
+
+        .nav-link.current-page {
+            color: #bfa14a;
+            border-bottom: 2px solid #bfa14a;
+            padding-bottom: 2px;
+        }
+        /* End of Homepage header styles */
+
+        /* Dark Mode Toggle Button Styles */
+        .dark-mode-toggle {
+        position: fixed; /* Make it floating */
+        bottom: 20px; /* 20px from the bottom */
+        right: 20px; /* 20px from the right */
+        background: #fff; /* Light mode background */
+        border: 1px solid #ddd;
+        border-radius: 50%; /* Make it circular */
+        width: 50px; /* Set a fixed width */
+        height: 50px; /* Set a fixed height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #444; /* Light mode icon color */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* Add shadow for floating effect */
+        z-index: 1001; /* Ensure it's above other content */
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+        background-color: #333; /* Dark mode background */
+        color: #f5f5f5; /* Dark mode icon color */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .dark-mode-toggle:hover {
+        transform: scale(1.1);
+        color: #bfa14a;
+        }
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://plus.unsplash.com/premium_photo-1674257440610-ff7f90cff0e3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--dark);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-gold);
+            transform: translateY(-3px);
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: var(--gold);
+            margin: 1rem auto;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 2rem;
+        }
+
+        .service-content h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Process Steps Styles */
+        .process-steps {
+            counter-reset: step-counter;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            padding-top: 4rem; /* Space for the step number */
+        }
+
+        .step::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--gold);
+            color: var(--dark);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .step h3 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            color: var(--dark);
+        }
+
+        .step p {
+            color: #555;
+        }
+
+        /* FAQ Section */
+        .faq {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #f0f0f0;
+        }
+
+        .faq-question.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            background-color: white;
+        }
+
+        .faq-answer.active {
+            max-height: 200px; /* Adjust as needed */
+            padding: 1.2rem 1.5rem;
+        }
+
+        .faq-answer p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* Accessories Section */
+        .accessories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .accessory-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .accessory-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .accessory-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .accessory-card h3 {
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .accessory-card p {
+            color: #555;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        /* Appointment Form Styles */
+        #appointment {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh; /* Vertically center on page */
+            padding: 0;
+        }
+
+        #appointment .container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .appointment-form {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: 2.5rem 2rem;
+            max-width: 480px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .appointment-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .appointment-form label {
+            font-weight: 600;
+            color: var(--dark-gold);
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .appointment-form input,
+        .appointment-form select,
+        .appointment-form textarea {
+            padding: 0.9rem 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #fcfcfc;
+            transition: border-color 0.2s;
+        }
+
+        .appointment-form input:focus,
+        .appointment-form select:focus,
+        .appointment-form textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+            background: #fff;
+        }
+
+        .appointment-form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .appointment-form .btn-gold-calc {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+            color: var(--dark);
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(255,215,0,0.15);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+        }
+
+        .appointment-form .btn-gold-calc:hover {
+            background: linear-gradient(90deg, var(--dark-gold), var(--gold));
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        #appointment .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--dark-gold);
+        }
+
+        #appointment .privacy-note {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--dark-gold);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+        }
+
+        body.dark-mode footer {
+          background-color: #1a1a1a;
+          color: #f5f5f5;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--gold);
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+        }
+
+        @media (max-width: 768px) {
+            nav { /* Ensure nav is hidden on small screens for mobile menu */
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .flex {
+              flex-direction: column;
+              align-items: center;
+            }
+
+            .section-padding {
+              padding: 3rem 0;
+            }
+
+            .section-title {
+              font-size: 2rem;
+            }
+
+            .service-card {
+              max-width: 90%;
+              margin: 0 auto;
+            }
+
+            .process-steps {
+              grid-template-columns: 1fr;
+            }
+
+            .accessory-card {
+              max-width: 90%;
+              margin: 0 auto;
+            }
+
+            .footer-content {
+              grid-template-columns: 1fr;
+            }
+
+            .appointment-form {
+                padding: 2rem; /* Adjust padding for smaller screens */
+            }
+        }
+
+        /* --- Dark Mode for Cards and Forms --- */
+        body.dark-mode .appointment-form,
+        body.dark-mode .service-card,
+        body.dark-mode .step,
+        body.dark-mode .faq-item,
+        body.dark-mode .accessory-card {
+            background: #232323;
+            color: #f5f5f5;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+
+        body.dark-mode .appointment-form input,
+        body.dark-mode .appointment-form select,
+        body.dark-mode .appointment-form textarea {
+            background: #181818;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+
+        body.dark-mode .appointment-form input:focus,
+        body.dark-mode .appointment-form select:focus,
+        body.dark-mode .appointment-form textarea:focus {
+            background: #232323;
+            border-color: var(--gold);
+        }
+
+        body.dark-mode .faq-question {
+            background: #232323;
+            color: #f5f5f5;
+            border-bottom: 1px solid #444;
+        }
+
+        body.dark-mode .faq-answer {
+            background: #181818;
+            color: #f5f5f5;
+        }
+
+        body.dark-mode .section-title {
+            color: var(--gold);
+        }
+
+        body.dark-mode #appointment {
+            background: #181818 !important;
+        }
+
+        body.dark-mode .privacy-note,
+        body.dark-mode #appointment .privacy-note {
+            color: var(--gold);
+        }
+
+        /* Fix text color for dark mode */
+
+/* Appointment form labels */
+body.dark-mode .appointment-form label {
+    color: #ffe082;
+}
+
+/* Section titles */
+body.dark-mode .section-title {
+    color: var(--gold);
+}
+body.dark-mode #faq .section-title {
+    color: #000;
+}
+/* Service card headings */
+body.dark-mode .service-content h3,
+body.dark-mode .step h3,
+body.dark-mode .accessory-card h3 {
+    color: #ffe082;
+}
+
+/* FAQ question text */
+body.dark-mode .faq-question {
+    color: #ffe082;
+}
+
+/* FAQ answer text */
+body.dark-mode .faq-answer p {
+    color: #f5f5f5;
+}
+
+/* General paragraph and text in cards */
+body.dark-mode .service-content,
+body.dark-mode .step,
+body.dark-mode .accessory-card,
+body.dark-mode .faq-answer {
+    color: #f5f5f5;
+}
+
+/* Placeholder text color for dark mode */
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #cccccc;
+    opacity: 1;
+}
+
+/* Button text color for contrast */
+body.dark-mode .btn,
+body.dark-mode .btn-gold-calc {
+    color: #232323;
+}
+body.dark-mode p {
+    color: #0ff !important;
+}
+
+/* Force all paragraph text to white in dark mode, overriding other rules */
+body.dark-mode p,
+body.dark-mode .service-card p,
+body.dark-mode .step p,
+body.dark-mode .accessory-card p,
+body.dark-mode .faq-answer p,
+body.dark-mode .footer-column p,
+body.dark-mode .appointment-form p,
+body.dark-mode .copyright p {
+    color: #fff !important;
+}
+        

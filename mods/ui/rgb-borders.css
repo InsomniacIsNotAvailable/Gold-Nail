@@ -1,0 +1,144 @@
+/* Opt-in RGB animations for borders and playing states */
+
+/* Full-page RGB border overlay (optional) */
+body.rgb-playing::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  border: 6px solid transparent;
+  border-radius: 12px;
+  animation: border-rainbow 1.2s linear infinite;
+  pointer-events: none;
+  z-index: 999999;
+}
+
+/* Re-enable RGB on selected rounded components while playing (optional) */
+body.rgb-playing :where(.header, .metric-card, .recent-concerns-section, .modal-content, .form-group p, .yt-chip, .add-concern-btn, .logout-btn, .status-dropdown) {
+  animation: border-rainbow 1.2s linear infinite;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+/* Appointment Details modal: animate borders while playing */
+#appointmentDetailsModal.playing .form-group p,
+#appointmentDetailsModal.playing .yt-chip {
+  animation: border-rainbow 1.2s linear infinite;
+}
+#appointmentDetailsModal.playing .modal-content {
+  border: 2px solid transparent;
+  animation: border-rainbow 1.2s linear infinite;
+  border-radius: 10px;
+}
+
+/* Upcoming Appointments: animate top/bottom only while playing */
+@keyframes border-rainbow-edges {
+  0%   { border-top-color:#ff0040; border-bottom-color:#ff0040; }
+  16%  { border-top-color:#ff8000; border-bottom-color:#ff8000; }
+  33%  { border-top-color:#ffee00; border-bottom-color:#ffee00; }
+  50%  { border-top-color:#21d600; border-bottom-color:#21d600; }
+  66%  { border-top-color:#00b3ff; border-bottom-color:#00b3ff; }
+  83%  { border-top-color:#7a00ff; border-bottom-color:#7a00ff; }
+  100% { border-top-color:#ff0040; border-bottom-color:#ff0040; }
+}
+.concerns-table tr.playing td {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-top: 2px solid transparent !important;
+  border-bottom: 2px solid transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  animation: border-rainbow-edges 1.2s linear infinite !important;
+}
+
+/* Core rainbow border keyframes (with subtle glow) */
+@keyframes border-rainbow {
+  0%   { border-color: #ff0040; box-shadow: 0 0 0 2px rgba(255,0,64,.15); }
+  16%  { border-color: #ff8000; box-shadow: 0 0 0 2px rgba(255,128,0,.15); }
+  33%  { border-color: #ffee00; box-shadow: 0 0 0 2px rgba(255,238,0,.15); }
+  50%  { border-color: #21d600; box-shadow: 0 0 0 2px rgba(33,214,0,.15); }
+  66%  { border-color: #00b3ff; box-shadow: 0 0 0 2px rgba(0,179,255,.15); }
+  83%  { border-color: #7a00ff; box-shadow: 0 0 0 2px rgba(122,0,255,.15); }
+  100% { border-color: #ff0040; box-shadow: 0 0 0 2px rgba(255,0,64,.15); }
+}
+
+/* Shared rainbow color variable for glow */
+@keyframes party-rainbow-color {
+  0%   { --rgb:#ff0040; --rgb-50:rgba(255,0,64,.50); --rgb-25:rgba(255,0,64,.25); }
+  16%  { --rgb:#ff8000; --rgb-50:rgba(255,128,0,.50); --rgb-25:rgba(255,128,0,.25); }
+  33%  { --rgb:#ffee00; --rgb-50:rgba(255,238,0,.50); --rgb-25:rgba(255,238,0,.25); }
+  50%  { --rgb:#21d600; --rgb-50:rgba(33,214,0,.50);  --rgb-25:rgba(33,214,0,.25);  }
+  66%  { --rgb:#00b3ff; --rgb-50:rgba(0,179,255,.50); --rgb-25:rgba(0,179,255,.25); }
+  83%  { --rgb:#7a00ff; --rgb-50:rgba(122,0,255,.50); --rgb-25:rgba(122,0,255,.25); }
+  100% { --rgb:#ff0040; --rgb-50:rgba(255,0,64,.50); --rgb-25:rgba(255,0,64,.25); }
+}
+
+/* Glow for RGB-enabled panels (no layout shift) — specific selectors + both animations */
+body.rgb-playing .header,
+body.rgb-playing .metric-card,
+body.rgb-playing .recent-concerns-section,
+body.rgb-playing .modal-content,
+body.rgb-playing .yt-chip,
+body.rgb-playing .status-dropdown,
+body.rgb-playing .add-concern-btn,
+body.rgb-playing .logout-btn {
+  position: relative;
+  /* run border color animation AND color variable animation together */
+  animation: border-rainbow 1.2s linear infinite, party-rainbow-color 1.2s linear infinite;
+  /* soft neon glow; use !important to beat darker panel shadows */
+  box-shadow:
+    0 0 0 2px var(--rgb-25),
+    0 0 12px 2px var(--rgb-50),
+    0 0 24px 6px var(--rgb-25) !important;
+  border: 2px solid transparent;     /* border-rainbow animates the color */
+  border-radius: 8px;
+  background-clip: padding-box;
+}
+
+/* Keep the existing top/bottom edge animation for playing rows and add glow */
+body.rgb-playing .concerns-table tr.playing td {
+  position: relative; /* host pseudo glow strips */
+  /* preserve your edge animation if present, plus the color variable */
+  animation: border-rainbow-edges 1.2s linear infinite, party-rainbow-color 1.2s linear infinite !important;
+  border-top: 2px solid transparent !important;
+  border-bottom: 2px solid transparent !important;
+  box-shadow: none !important; /* avoid per-cell shadow clutter */
+}
+
+/* Blurred glow strips above and below the playing row cells */
+body.rgb-playing .concerns-table tr.playing td::before,
+body.rgb-playing .concerns-table tr.playing td::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 8px;                /* glow thickness (visual) */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Top glow */
+body.rgb-playing .concerns-table tr.playing td::before {
+  top: -4px;
+  background: linear-gradient(to bottom, var(--rgb-50), transparent);
+  filter: blur(6px);
+}
+
+/* Bottom glow */
+body.rgb-playing .concerns-table tr.playing td::after {
+  bottom: -4px;
+  background: linear-gradient(to top, var(--rgb-50), transparent);
+  filter: blur(6px);
+}
+
+/* Optional: Sidebar RGB edge gets a glowing strip */
+body.rgb-playing .sidebar {
+  position: relative;
+}
+body.rgb-playing .sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; width: 6px; height: 100%;
+  animation: party-rainbow-color 1.2s linear infinite;
+  background: var(--rgb);
+  box-shadow: 0 0 14px 4px var(--rgb-50), 0 0 36px 10px var(--rgb-25);
+  pointer-events: none;
+}

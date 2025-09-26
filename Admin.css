@@ -1,0 +1,1134 @@
+/* Admin.css */
+
+/* General Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fa;
+    display: flex;
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #2c3e50 0%, #1a252f 100%); /* Dark blue-grey gradient */
+    color: #ecf0f1; /* Light grey text */
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+    position: relative; /* For potential absolute positioning of elements inside */
+    overflow-y: auto; /* Enable scrolling for long content */
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    padding: 0 20px;
+    gap: 10px;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #3498db; /* Blue accent */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-logo svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+.sidebar-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ecf0f1;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    margin: 0; /* Reset margin */
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 2px solid #3498db; /* Blue border */
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.user-role {
+    font-size: 13px;
+    color: #bdc3c7; /* Lighter grey */
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li {
+    margin-bottom: 5px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-left-color 0.3s ease;
+    border-left: 5px solid transparent;
+    position: relative;
+    overflow: hidden; /* For hover effect */
+}
+
+.sidebar-nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(52, 152, 219, 0.1); /* Light blue overlay */
+    transition: left 0.3s ease;
+    z-index: 0;
+}
+
+.sidebar-nav a:hover::before,
+.sidebar-nav a.active::before {
+    left: 0;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background-color: transparent; /* Background handled by ::before */
+    color: #3498db; /* Blue */
+    border-left-color: #3498db;
+}
+
+.sidebar-nav a svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    fill: currentColor; /* Inherit color from parent */
+    z-index: 1; /* Ensure icon is above pseudo-element */
+}
+
+.sidebar-nav a span {
+    z-index: 1; /* Ensure text is above pseudo-element */
+}
+
+/* Main Content Area */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: #f4f7fa;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header h1 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-actions span {
+    font-size: 16px;
+    color: #555;
+    font-weight: 500;
+}
+
+.logout-btn {
+    background-color: #e74c3c; /* Red */
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b; /* Darker red */
+}
+
+/* Demographics Section */
+.demographics-section {
+    margin-bottom: 40px;
+}
+
+.demographics-section h2,
+.recent-concerns-section h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.demographics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.metric-card {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #555;
+}
+
+.card-header svg {
+    width: 28px;
+    height: 28px;
+    color: #3498db; /* Blue for icons */
+}
+
+.metric-card.visits .card-header svg {
+    color: #2ecc71; /* Green for visits */
+}
+
+.metric-card.concerns .card-header svg {
+    color: #e67e22; /* Orange for concerns */
+}
+
+.metric-value {
+    font-size: 38px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.metric-description {
+    font-size: 14px;
+    color: #777;
+}
+
+.add-concern {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 150px; /* Ensure consistent height with other cards */
+}
+
+.add-concern .card-header-title {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #555;
+}
+
+.add-concern-btn {
+    background-color: #3498db; /* Blue */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-concern-btn:hover {
+    background-color: #2980b9; /* Darker blue */
+    transform: translateY(-2px);
+}
+
+.add-concern-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+}
+
+/* Recent Concerns Section */
+.recent-concerns-section {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+/* Section header with right-aligned Filter button */
+.recent-concerns-section .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Remove the default h2 spacing/border since container now has it */
+.recent-concerns-section .section-header h2 {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+/* Filter button (consistent with blue CTAs) */
+.filter-btn {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.filter-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+/* Match Appointment Overview h2 typography; bold title, no bottom border here */
+.table-header .section-title {
+  font-size: 24px;
+  font-weight: 700;   /* bold */
+  color: #2c3e50;
+}
+
+/* Override filter button inside this section to be white with a light gray border */
+.recent-concerns-section .filter-btn {
+  background: #ffffff;
+  color: #000;
+  border: 1px solid #d0d7de;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.recent-concerns-section .filter-btn:hover {
+  background: #f6f8fa;
+}
+
+/* Divider line under the header, same color as Appointment Overview bottom border */
+.divider-line {
+  border-bottom: 2px solid #eee;
+  padding: 8px 0;
+  width: 100%;
+  margin: 0 0 12px 0;
+}
+
+.concerns-table-container {
+    overflow-x: auto;
+}
+
+.concerns-table {
+    width: 100%;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+}
+
+/* 1) Reset any previously-set bottom borders */
+.concerns-table th,
+.concerns-table td {
+  border-bottom: none !important;
+}
+
+/* 2) Remove left/right borders in the collapsed model (style+width) */
+.concerns-table th,
+.concerns-table td {
+  border-left-style: none !important;
+  border-right-style: none !important;
+  border-left-width: 0 !important;
+  border-right-width: 0 !important;
+  border-image: none !important;
+}
+
+/* 3) Apply only top/bottom borders explicitly */
+.concerns-table thead th {
+  border-top: 2px solid #eee !important;
+  border-bottom: 2px solid #eee !important;
+}
+.concerns-table tbody td {
+  border-top: 1px solid #eee !important;     /* row separators */
+  border-bottom: 1px solid #eee !important;  /* optional: keep if you want both edges visible */
+}
+
+.concerns-table th,
+.concerns-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.concerns-table th {
+    background-color: #f8f8f8;
+    color: #555;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.concerns-table tbody tr:hover {
+    background-color: #fbfbfb;
+}
+
+.concerns-table td {
+    color: #666;
+    font-size: 15px;
+}
+
+/* Table: draw only top/bottom separators via background gradients (no real borders) */
+.concerns-table {
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+}
+.concerns-table th,
+.concerns-table td {
+  /* kill any borders from earlier rules */
+  border: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  /* draw separators */
+  background-repeat: no-repeat;
+  background-origin: padding-box;
+  background-clip: padding-box;
+}
+/* Header cells: 2px separators */
+.concerns-table thead th {
+  background-image:
+    linear-gradient(#eee, #eee),  /* top */
+    linear-gradient(#eee, #eee);  /* bottom */
+  background-size: 100% 2px, 100% 2px;
+  background-position: 0 0, 0 100%;
+}
+/* Body cells: 1px separators */
+.concerns-table tbody td {
+  background-image:
+    linear-gradient(#eee, #eee),  /* top */
+    linear-gradient(#eee, #eee);  /* bottom */
+  background-size: 100% 1px, 100% 1px;
+  background-position: 0 0, 0 100%;
+}
+
+/* Status badge shape helper */
+.concerns-table .status-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 8px; /* rounded rectangle */
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* Status Badges */
+.concerns-table .status-new {
+    background-color: #3498db;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.concerns-table .status-in-progress {
+    background-color: #f39c12;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.concerns-table .status-resolved {
+    background-color: #2ecc71;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+/* NEW: Cancelled */
+.concerns-table .status-cancelled {
+    background-color: #95a5a6; /* Neutral gray */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Modal Styling */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden; /* Hidden by default */
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    color: #333;
+}
+
+.modal-content h3 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 15px;
+}
+
+.form-group input[type="date"],
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+    width: calc(100% - 22px); /* Account for padding and border */
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    transition: border-color 0.2s ease;
+}
+
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+    width: calc(100% - 22px);
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.modal-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modal-btn.cancel {
+    background-color: #95a5a6; /* Grey */
+    color: white;
+}
+
+.modal-btn.cancel:hover {
+    background-color: #7f8c8d; /* Darker grey */
+    transform: translateY(-2px);
+}
+
+.modal-btn.submit {
+    background-color: #2ecc71; /* Green */
+    color: white;
+}
+
+.modal-btn.submit:hover {
+    background-color: #27ae60; /* Darker green */
+    transform: translateY(-2px);
+}
+
+/* Appointment Details Modal - field boxes and scrollable message */
+#appointmentDetailsModal .modal-content { max-width: 640px; }
+
+#appointmentDetailsModal .form-group {
+  margin-bottom: 14px;
+}
+
+#appointmentDetailsModal .form-group label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
+}
+
+#appointmentDetailsModal .form-group p {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid #d0d7de;           /* grey border */
+  border-radius: 8px;                   /* rounded rectangle */
+  background: #fff;
+  color: #2c3e50;
+  line-height: 1.4;
+  overflow-wrap: anywhere;              /* keep long strings from overflowing */
+}
+
+/* Messages can get long: add vertical scroll after threshold */
+#appointmentDetailsModal [data-f="message"] {
+  max-height: 200px;                    /* threshold */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Status dropdown for Edit button */
+.status-dropdown .status-item[data-status="Cancelled"] {
+  color: #7f8c8d;
+}
+.status-dropdown .status-item[data-status="Cancelled"]:hover,
+.status-dropdown .status-item[data-status="Cancelled"]:focus {
+  background: #eef2f3;
+}
+
+/* YouTube song chip + player in details modal */
+#appointmentDetailsModal .yt-embed-wrap { margin: 6px 0; }
+#appointmentDetailsModal .yt-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid #d0d7de;
+  border-radius: 9999px;
+  background: #fff;
+  color: #1f2937;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+#appointmentDetailsModal .yt-chip:hover { background: #f8fafc; }
+#appointmentDetailsModal .yt-player {
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+/* RGB border animation when a song is playing in details modal */
+@keyframes border-rainbow {
+  0%   { border-color: #ff0040; box-shadow: 0 0 0 2px rgba(255,0,64,.15); }
+  16%  { border-color: #ff8000; box-shadow: 0 0 0 2px rgba(255,128,0,.15); }
+  33%  { border-color: #ffee00; box-shadow: 0 0 0 2px rgba(255,238,0,.15); }
+  50%  { border-color: #21d600; box-shadow: 0 0 0 2px rgba(33,214,0,.15); }
+  66%  { border-color: #00b3ff; box-shadow: 0 0 0 2px rgba(0,179,255,.15); }
+  83%  { border-color: #7a00ff; box-shadow: 0 0 0 2px rgba(122,0,255,.15); }
+  100% { border-color: #ff0040; box-shadow: 0 0 0 2px rgba(255,0,64,.15); }
+}
+
+/* No-glow RGB for top/bottom borders only */
+@keyframes border-rainbow-edges {
+  0%   { border-top-color:#ff0040; border-bottom-color:#ff0040; }
+  16%  { border-top-color:#ff8000; border-bottom-color:#ff8000; }
+  33%  { border-top-color:#ffee00; border-bottom-color:#ffee00; }
+  50%  { border-top-color:#21d600; border-bottom-color:#21d600; }
+  66%  { border-top-color:#00b3ff; border-bottom-color:#00b3ff; }
+  83%  { border-top-color:#7a00ff; border-bottom-color:#7a00ff; }
+  100% { border-top-color:#ff0040; border-bottom-color:#ff0040; }
+}
+
+/* Animate field boxes, chip, and the modal border while playing */
+#appointmentDetailsModal.playing .form-group p {
+  animation: border-rainbow 1.2s linear infinite;
+}
+#appointmentDetailsModal.playing .yt-chip {
+  animation: border-rainbow 1.2s linear infinite;
+}
+#appointmentDetailsModal.playing .modal-content {
+  border: 2px solid transparent; /* ensure border exists to animate */
+  animation: border-rainbow 1.2s linear infinite;
+  border-radius: 10px;
+}
+
+/* Playing row: only top/bottom borders animate; remove any glow/side borders */
+.concerns-table tr.playing td {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-top: 2px solid transparent !important;
+  border-bottom: 2px solid transparent !important;
+  box-shadow: none !important;                  /* kill glow from other keyframes */
+  animation: border-rainbow-edges 1.2s linear infinite !important;
+  border-radius: 0 !important;
+}
+
+/* Play chip in table next to customer name */
+.concerns-table .customer-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.concerns-table .customer-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+.concerns-table .yt-inline-chip {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid #d0d7de;
+  border-radius: 9999px;
+  background: #fff;
+  color: #1f2937;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+}
+.concerns-table .yt-inline {
+  width: 100%;
+}
+.concerns-table .yt-inline .yt-player {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+/* RGB effect for the row while song is playing (reuses border-rainbow keyframes) */
+.concerns-table tr.playing td {
+  animation: border-rainbow 1.2s linear infinite;
+  border-radius: 6px;
+}
+
+/* Full-page RGB border overlay when any song is playing */
+body.rgb-playing::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  border: 6px solid transparent;
+  border-radius: 12px;
+  animation: border-rainbow 1.2s linear infinite;
+  pointer-events: none;
+  z-index: 999999; /* above app UI */
+}
+
+/* REMOVE this block to avoid animating other elements via the body selector */
+/*
+body.rgb-playing :where(.header, .metric-card, .recent-concerns-section, .sidebar, .modal-content, .form-group p, input, select, textarea, .status-dropdown, .yt-chip, .add-concern-btn, .logout-btn) {
+  animation: border-rainbow 1.2s linear infinite;
+}
+*/
+
+/* Keep the top/bottom-only animation for the playing row cells */
+@keyframes border-rainbow-edges {
+  0%   { border-top-color:#ff0040; border-bottom-color:#ff0040; }
+  16%  { border-top-color:#ff8000; border-bottom-color:#ff8000; }
+  33%  { border-top-color:#ffee00; border-bottom-color:#ffee00; }
+  50%  { border-top-color:#21d600; border-bottom-color:#21d600; }
+  66%  { border-top-color:#00b3ff; border-bottom-color:#00b3ff; }
+  83%  { border-top-color:#7a00ff; border-bottom-color:#7a00ff; }
+  100% { border-top-color:#ff0040; border-bottom-color:#ff0040; }
+}
+.concerns-table tr.playing td {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-top: 2px solid transparent !important;
+  border-bottom: 2px solid transparent !important;
+  box-shadow: none !important;
+  animation: border-rainbow-edges 1.2s linear infinite !important;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 200px;
+        padding: 15px 0;
+    }
+
+    .sidebar-header {
+        margin-bottom: 20px;
+    }
+
+    .sidebar-title {
+        font-size: 22px;
+    }
+
+    .user-profile {
+        padding: 12px 15px;
+        margin-bottom: 20px;
+    }
+
+    .user-avatar {
+        width: 45px;
+        height: 45px;
+    }
+
+    .user-name {
+        font-size: 16px;
+    }
+
+    .user-role {
+        font-size: 12px;
+    }
+
+    .sidebar-nav a {
+        padding: 10px 15px;
+        font-size: 15px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .demographics-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .metric-value {
+        font-size: 32px;
+    }
+
+    .metric-description {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 10px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: static;
+        overflow-y: visible; /* Allow content to expand */
+    }
+
+    .sidebar-header {
+        justify-content: flex-start;
+        padding-left: 20px;
+    }
+
+    .sidebar-logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .sidebar-title {
+        font-size: 20px;
+    }
+
+    .user-profile {
+        display: none; /* Hide user profile on smaller screens for compactness */
+    }
+
+    .sidebar-nav ul {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .sidebar-nav li {
+        margin-bottom: 0;
+    }
+
+    .sidebar-nav a {
+        padding: 10px;
+        font-size: 14px;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .sidebar-nav a::before {
+        display: none; /* Hide hover effect on small screens */
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a.active {
+        background-color: transparent;
+        border-bottom-color: #3498db;
+        color: #3498db;
+    }
+
+    .sidebar-nav a svg {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .demographics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metric-card {
+        padding: 20px;
+    }
+
+    .recent-concerns-section {
+        padding: 20px;
+    }
+
+    .concerns-table th,
+    .concerns-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .modal-content {
+        padding: 25px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .modal-btn {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-nav a {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .sidebar-nav a svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .header-actions span {
+        font-size: 14px;
+    }
+
+    .logout-btn {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .demographics-section h2,
+    .recent-concerns-section h2 {
+        font-size: 20px;
+    }
+
+    .metric-value {
+        font-size: 28px;
+    }
+
+    .add-concern-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .modal-content h3 {
+        font-size: 20px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+}
+
+/* 1) Disable the body overlay RGB completely */
+body.rgb-playing::before {
+  content: none !important;
+  content: none !important;
+  border: 0 !important;
+  animation: none !important;
+}
+
+/* 2) Re-enable RGB on key rounded components while playing (not the body tag) */
+body.rgb-playing :where(.header, .metric-card, .recent-concerns-section, .modal-content, .form-group p, .yt-chip, .add-concern-btn, .logout-btn, .status-dropdown, .filter-btn) {
+  animation: border-rainbow 1.2s linear infinite;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+/* 3) Ensure Upcoming Appointments playing row animates top/bottom borders only */
+@keyframes border-rainbow-edges {
+  0%   { border-top-color:#ff0040; border-bottom-color:#ff0040; }
+  16%  { border-top-color:#ff8000; border-bottom-color:#ff8000; }
+  33%  { border-top-color:#ffee00; border-bottom-color:#ffee00; }
+  50%  { border-top-color:#21d600; border-bottom-color:#21d600; }
+  66%  { border-top-color:#00b3ff; border-bottom-color:#00b3ff; }
+  83%  { border-top-color:#7a00ff; border-bottom-color:#7a00ff; }
+  100% { border-top-color:#ff0040; border-bottom-color:#ff0040; }
+}
+
+/* Remove any previous per-cell glow and side borders; keep only top/bottom animated */
+.concerns-table tr.playing td {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-top: 2px solid transparent !important;
+  border-bottom: 2px solid transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  animation: border-rainbow-edges 1.2s linear infinite !important;
+}

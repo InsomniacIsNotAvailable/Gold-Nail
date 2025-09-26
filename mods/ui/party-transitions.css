@@ -1,0 +1,43 @@
+/* Smooth color/background/border transitions when toggling Party Mode */
+@media (prefers-reduced-motion: no-preference) {
+  /* Core surfaces */
+  body,
+  .main-content,
+  .sidebar,
+  .header,
+  .metric-card,
+  .recent-concerns-section,
+  .modal-content {
+    transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+
+  /* Table */
+  .concerns-table th,
+  .concerns-table td,
+  .concerns-table tr.yt-expand td {
+    transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+  }
+
+  /* Buttons and chips */
+  .add-concern-btn,
+  .logout-btn,
+  .concerns-table .action-btn,
+  .concerns-table .yt-inline-play,
+  .status-badge,
+  .status-dropdown {
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+
+  /* Form elements (add modal + details modal) */
+  .form-group input,
+  .form-group textarea,
+  .form-group select,
+  #appointmentDetailsModal .form-group p {
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+
+  /* Sidebar links */
+  .sidebar-nav a {
+    transition: color .2s ease, border-color .2s ease, background-color .2s ease;
+  }
+}

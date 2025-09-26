@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gold Nail in your area</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #faf7f2;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main { flex: 1; }
+    .announcement-bar {
+      background: #222;
+      color: #f5f5f5;
+      font-weight: 600;
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      position: sticky;
+      top: 0;
+      z-index: 1100;
+      user-select: none;
+    }
+    header {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 40px;
+      z-index: 1000;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .flex { display: flex; }
+    .justify-between { justify-content: space-between; }
+    .items-center { align-items: center; }
+    .nav-link {
+      color: #444;
+      text-decoration: none;
+      font-weight: 500;
+      margin: 0 1rem;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: #bfa14a; }
+    .gold-text {
+      background: linear-gradient(to right, #bfa14a, #e6d17e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .icon-gem {
+      display: inline-block;
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #e6d17e 60%, #bfa14a 100%);
+      clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    /* Hero Section */
+    .hero-gradient {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: url('https://images.unsplash.com/photo-1596436889106-be35e843f974?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center center/cover no-repeat;
+      transition: background-image 0.5s;
+      padding-top: 2rem;
+    }
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 8px #0004;
+    }
+    .hero-desc {
+      color: #f8e9b0;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 1px 4px #0003;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    .btn-gold {
+      background: linear-gradient(90deg, #bfa14a, #e6d17e);
+      color: #fff;
+      box-shadow: 0 2px 8px #bfa14a44;
+    }
+    .btn-gold:hover { background: #bfa14a; }
+    .btn-outline {
+      background: #fff;
+      color: #bfa14a;
+      border: 2px solid #bfa14a;
+    }
+    .btn-outline:hover {
+      background: #f8e9b0;
+      color: #222;
+    }
+    .hero-img {
+      border-radius: 12px;
+      box-shadow: 0 4px 24px #0002;
+      width: 390px;
+      height: 320px;
+      object-fit: cover;
+      transition: opacity 0.5s;
+      background: #fff;
+    }
+    /* Section Styles */
+    section {
+      padding: 4rem 0;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #bfa14a;
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+    /* Price Cards */
+    .price-cards {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .price-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #0001;
+      padding: 2rem 1.5rem;
+      min-width: 260px;
+      max-width: 320px;
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border: 1px solid #f3e7c3;
+      transition: box-shadow 0.2s;
+    }
+    .price-card:hover { box-shadow: 0 6px 24px #bfa14a22; }
+    .price-title { font-size: 1.2rem; font-weight: bold; color: #bfa14a; }
+    .price-value { font-size: 2rem; font-weight: bold; color: #bfa14a; }
+    .price-desc { color: #555; font-size: 1rem; }
+    .price-change {
+      font-size: 0.95rem;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .icon-up { color: #3bbf5a; font-weight: bold; }
+    .icon-down { color: #e74c3c; font-weight: bold; }
+    .icon-eq { color: #888; font-weight: bold; }
+    /* Calculator */
+    .calculator-container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #0001;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .form-label { font-weight: 500; color: #bfa14a; margin-bottom: 0.5rem; display: block; }
+    .form-input, select {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1px solid #e6d17e;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      background: #faf7f2;
+      color: #222;
+      transition: border 0.2s;
+    }
+    .form-input:focus, select:focus { border: 1.5px solid #bfa14a; outline: none; }
+    #result-container {
+      background: #f8e9b0;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 1rem;
+      display: none;
+    }
+    #result-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #bfa14a;
+    }
+    /* How It Works */
+    .how-cards {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .how-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #0001;
+      padding: 2rem 1.5rem;
+      min-width: 220px;
+      max-width: 300px;
+      flex: 1 1 220px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .how-icon {
+      width: 48px; height: 48px;
+      margin: 0 auto 1rem;
+      background: #f8e9b0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #bfa14a;
+    }
+    /* Testimonials */
+    .testimonials {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .testimonial-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #0001;
+      padding: 2rem 1.5rem;
+      min-width: 260px;
+      max-width: 320px;
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      height: 100%;
+    }
+    .stars {
+      color: #e6d17e;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .testimonial-user {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-top: 1rem;
+    }
+    .user-img {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #eee;
+    }
+    .user-info h4 { margin: 0; font-weight: 600; color: #bfa14a; }
+    .user-info p { margin: 0; color: #888; font-size: 0.95rem; }
+    /* Contact */
+    .contact-form {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #0001;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    textarea.form-input { min-height: 80px; }
+    /* Footer */
+    footer {
+      background: #bfa14a;
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem 0 1rem 0;
+      margin-top: auto;
+    }
+    .footer-social {
+      margin-top: 0.5rem;
+    }
+    .footer-social a {
+      color: #fff;
+      margin: 0 0.5rem;
+      font-size: 1.3rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: #222; }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .price-cards, .how-cards, .testimonials { flex-direction: column; gap: 1.5rem; }
+      .hero-content { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement-bar" role="region" aria-label="Announcement">
+    We ensure safe and secure transactions for your items
+  </div>
+  <!-- Header/Navigation -->
+  <header>
+    <div class="container flex justify-between items-center" style="padding: 1.2rem 1rem;">
+      <div class="flex items-center">
+        <span class="icon-gem"></span>
+        <span class="gold-text">Gold Nail</span>
+      </div>
+      <nav>
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#prices" class="nav-link">Gold Prices</a>
+        <a href="#calculator" class="nav-link">Calculator</a>
+        <a href="#about" class="nav-link">About Us</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient">
+      <div class="hero-content flex" style="align-items:center;">
+        <div style="flex:1;">
+          <div class="hero-title">Get the Best Value for Your Gold</div>
+          <div class="hero-desc">We offer competitive rates and professional evaluation for your gold items. Trusted by thousands of customers across the country.</div>
+          <div class="hero-btns">
+            <a href="#calculator" class="btn btn-gold">Calculate Your Gold's Value</a>
+            <a href="#contact" class="btn btn-outline">Contact Our Experts</a>
+          </div>
+        </div>
+        <div style="flex:1; display:flex; justify-content:center;">
+          <img id="hero-img"
+            src="https://images.unsplash.com/photo-1596436889106-be35e843f974?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+            alt="Gold jewelry"
+            class="hero-img"
+          >
+        </div>
+      </div>
+    </section>
+    <!-- Prices -->
+    <section id="prices">
+      <div class="container">
+        <div class="section-title">Today's Gold Prices</div>
+        <div class="price-cards">
+          <div class="price-card">
+            <div class="price-title">24K Pure Gold <span style="font-size:0.8rem; background:#f8e9b0; color:#bfa14a; border-radius:6px; padding:2px 8px; margin-left:8px;">Best Value</span></div>
+            <div class="price-value">₱3,450 <span style="font-size:1rem; color:#888;">/gram</span></div>
+            <div class="price-desc">Highest purity gold (99.9%) with the brightest luster and richest color.</div>
+            <div class="price-change"><span class="icon-up">&#9650;</span> ₱15 higher than yesterday</div>
+          </div>
+          <div class="price-card">
+            <div class="price-title">22K Gold <span style="font-size:0.8rem; background:#e6f0fa; color:#3b5998; border-radius:6px; padding:2px 8px; margin-left:8px;">Popular</span></div>
+            <div class="price-value">₱3,150 <span style="font-size:1rem; color:#888;">/gram</span></div>
+            <div class="price-desc">91.6% pure gold, commonly used in high-quality jewelry with excellent durability.</div>
+            <div class="price-change"><span class="icon-down">&#9660;</span> ₱8 lower than yesterday</div>
+          </div>
+          <div class="price-card">
+            <div class="price-title">18K Gold <span style="font-size:0.8rem; background:#f3e7fa; color:#8e44ad; border-radius:6px; padding:2px 8px; margin-left:8px;">Durable</span></div>
+            <div class="price-value">₱2,580 <span style="font-size:1rem; color:#888;">/gram</span></div>
+            <div class="price-desc">75% pure gold, ideal for everyday jewelry with good balance of purity and strength.</div>
+            <div class="price-change"><span class="icon-eq">&#8212;</span> No change from yesterday</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Calculator -->
+    <section id="calculator">
+      <div class="container">
+        <div class="section-title">Gold Value Calculator</div>
+        <div class="calculator-container">
+          <label class="form-label" for="gold-type">Gold Purity</label>
+          <select id="gold-type">
+            <option value="24">24K (99.9% pure) - ₱3,450/gram</option>
+            <option value="22">22K (91.6% pure) - ₱3,150/gram</option>
+            <option value="18">18K (75% pure) - ₱2,580/gram</option>
+            <option value="14">14K (58.3% pure) - ₱2,010/gram</option>
+            <option value="10">10K (41.7% pure) - ₱1,440/gram</option>
+          </select>
+          <label class="form-label" for="weight">Weight (grams)</label>
+          <input type="number" id="weight" class="form-input" placeholder="Enter weight in grams" min="0" step="0.01">
+          <button id="calculate-btn" class="btn btn-gold" style="width:100%;">Calculate Value</button>
+          <div id="result-container">
+            <div style="font-weight:600; color:#bfa14a; margin-bottom:0.5rem;">Estimated Value</div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span>Your gold is worth approximately:</span>
+              <span id="result-value">₱0.00</span>
+            </div>
+            <div style="margin-top:0.5rem; color:#888; font-size:0.95rem;">
+              This is an estimate based on current market prices. Final valuation may vary based on actual purity and condition.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- How It Works -->
+    <section>
+      <div class="container">
+        <div class="section-title">How It Works</div>
+        <div class="how-cards">
+          <div class="how-card">
+            <div class="how-icon">&#128269;</div>
+            <div style="font-weight:600; color:#bfa14a;">1. Evaluation</div>
+            <div class="price-desc">Bring your gold items to our store for professional assessment by our certified experts.</div>
+          </div>
+          <div class="how-card">
+            <div class="how-icon">&#128181;</div>
+            <div style="font-weight:600; color:#bfa14a;">2. Pricing</div>
+            <div class="price-desc">We calculate the exact value based on current market prices and your gold's purity.</div>
+          </div>
+          <div class="how-card">
+            <div class="how-icon">&#128176;</div>
+            <div style="font-weight:600; color:#bfa14a;">3. Payment</div>
+            <div class="price-desc">Receive immediate cash payment or bank transfer once you accept our offer.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials -->
+    <section style="background:#faf7f2;">
+      <div class="container">
+        <div class="section-title">What Our Customers Say</div>
+        <div class="testimonials">
+          <div class="testimonial-card">
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div style="color:#888; font-size:0.95rem;">2 weeks ago</div>
+            <div>"I was nervous about selling my grandmother's necklace, but the staff at Gold Nail were so professional and gave me a fair price. The whole process took less than 30 minutes!"</div>
+            <div class="testimonial-user">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Maria Santos" class="user-img">
+              <div class="user-info">
+                <h4>Maria Santos</h4>
+                <p>Manila</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div style="color:#888; font-size:0.95rem;">1 month ago</div>
+            <div>"Compared prices at 3 different shops and Gold Nail offered the best rate for my gold coins. Their calculator on the website matched exactly what they paid me."</div>
+            <div class="testimonial-user">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Juan Dela Cruz" class="user-img">
+              <div class="user-info">
+                <h4>Juan Dela Cruz</h4>
+                <p>Quezon City</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">&#9733;&#9733;&#9733;&#9733;&#189;</div>
+            <div style="color:#888; font-size:0.95rem;">3 months ago</div>
+            <div>"Great experience! The staff was friendly and knowledgeable. I felt comfortable throughout the process and left with a good deal."</div>
+            <div class="testimonial-user">
+              <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Ana Reyes" class="user-img">
+              <div class="user-info">
+                <h4>Ana Reyes</h4>
+                <p>Cebu</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-title">Contact Us</div>
+        <form class="contact-form">
+          <label class="form-label" for="name">Name</label>
+          <input type="text" id="name" class="form-input" required>
+          <label class="form-label" for="email">Email</label>
+          <input type="email" id="email" class="form-input" required>
+          <label class="form-label" for="message">Message</label>
+          <textarea id="message" class="form-input" required></textarea>
+          <button type="submit" class="btn btn-gold" style="width:100%;">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer>
+    <div>© Gold Nail. All rights reserved.</div>
+    <div class="footer-social">
+      <a href="#" title="Facebook">&#128100;</a>
+    </div>
+  </footer>
+  <script>
+    // Hero image slider
+    const images = [
+      "https://images.unsplash.com/photo-1596436889106-be35e843f974?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      "https://images.unsplash.com/photo-1717409014701-8e630ff057f3?q=120&w=1334&auto=format&fit=crop&ixlib=rb-4.1.0",
+      "https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?w=600&auto=format&fit=crop&q=120&ixlib=rb-4.1.0"
+    ];
+    let idx = 0;
+    const img = document.getElementById('hero-img');
+    setInterval(() => {
+      img.style.opacity = 0;
+      setTimeout(() => {
+        idx = (idx + 1) % images.length;
+        img.src = images[idx];
+        img.style.opacity = 1;
+      }, 500);
+    }, 4000);
+
+    // Calculator
+    document.getElementById('calculate-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const goldType = document.getElementById('gold-type').value;
+      const weight = parseFloat(document.getElementById('weight').value);
+      let pricePerGram = 0;
+      switch (goldType) {
+        case '24': pricePerGram = 3450; break;
+        case '22': pricePerGram = 3150; break;
+        case '18': pricePerGram = 2580; break;
+        case '14': pricePerGram = 2010; break;
+        case '10': pricePerGram = 1440; break;
+      }
+      const estimatedValue = (pricePerGram * (weight || 0)).toFixed(2);
+      document.getElementById('result-value').textContent = `₱${estimatedValue}`;
+      document.getElementById('result-container').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
