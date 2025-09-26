@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let params = {};
   try { params = JSON.parse(bootstrapEl.textContent || '{}'); } catch {}
 
-  let chart = await createGoldChart(params);
+  let chart = await createGoldChart(params, { fillMonth: false });
 
   const form = document.getElementById('goldChartForm');
   if (!form) return;
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     pending = setTimeout(async () => {
       pending = null;
       params = buildParams();
-      await reloadGoldChart(chart, params);
+  await reloadGoldChart(chart, params, { fillMonth: false });
       // Optionally sync URL without reload:
       if (history.replaceState) {
         const qs = new URLSearchParams({ month: params.month, karat: params.karat });
@@ -79,11 +79,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // If you want last-N behavior again, call:
     // window.GoldChartHelpers?.centerLatest?.(chart, 20);
     // For full-month mode we just reset to month bounds (reload already sets them).
-    reloadGoldChart(chart, params);
+  reloadGoldChart(chart, params, { fillMonth: false });
   });
 
   document.getElementById('goldResetZoom')?.addEventListener('click', () => {
-    if (chart?.resetZoom) chart.resetZoom();
-    reloadGoldChart(chart, params); // restore month bounds
+  if (chart?.resetZoom) chart.resetZoom();
+  reloadGoldChart(chart, params, { fillMonth: false }); // restore month bounds
   });
 });

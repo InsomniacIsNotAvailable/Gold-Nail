@@ -1,0 +1,10 @@
+BREVO_API_KEY=your_api_key_here
+
+# Optional overrides
+BREVO_SENDER_EMAIL=your-email@example.com
+BREVO_SENDER_NAME="Gold Nail"
+BREVO_DEFAULT_REPLY_TO=your-email@example.com
+TEST_EMAIL_SECRET=""
+BREVO_STORE_ADDRESS=4740, La Villa III unit 104, Solchuaga Street, brgy. Tejeros, Makati City
+BREVO_STORE_LANDLINE=83625478
+# Logo URL removed to avoid broken images in email clients; fallback to brand text

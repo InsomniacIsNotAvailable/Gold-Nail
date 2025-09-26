@@ -2,15 +2,28 @@
 declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(200); exit; }
 
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../tasks/lib_gold_ohlc_sync.php';
+
+function respond($data, int $code = 200): void { http_response_code($code); echo json_encode($data); exit; }
 
 function read_json(): array {
     $raw = file_get_contents('php://input');
     if ($raw === false || $raw === '') return [];
     $data = json_decode($raw, true);
     return is_array($data) ? $data : [];
+}
+
+function validate_date(string $d): bool {
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $d)) return false;
+    [$y,$m,$day] = array_map('intval', explode('-', $d));
+    return checkdate($m, $day, $y);
 }
 
 $action = $_GET['action'] ?? '';
@@ -31,51 +44,55 @@ try {
             $res = $conn->query("SELECT MAX(`date`) AS last_date FROM gold_ohlc");
             $row = $res ? $res->fetch_assoc() : null;
             $conn->close();
-            echo json_encode(['last' => $row && $row['last_date'] ? $row['last_date'] : null]);
-            break;
+            $last = ($row && $row['last_date']) ? $row['last_date'] : null;
+            respond(['last' => $last]);
         }
-        case 'syncRange': {
-            $in = read_json();
-            $from = (string)($in['from'] ?? '');
-            $to   = (string)($in['to']   ?? '');
-            if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $from) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $to)) {
-                http_response_code(400);
-                echo json_encode(['error' => 'from/to must be YYYY-MM-DD']);
-                break;
-            }
-            $start = new DateTimeImmutable($from, new DateTimeZone('UTC'));
-            $end   = new DateTimeImmutable($to,   new DateTimeZone('UTC'));
-            if ($start > $end) {
-                http_response_code(400);
-                echo json_encode(['error' => 'from must be <= to']);
-                break;
-            }
-            // Optional guard to avoid huge ranges
-            $diffDays = (int)$end->diff($start)->format('%a');
-            if ($diffDays > 62) {
-                http_response_code(400);
-                echo json_encode(['error' => 'Range too large (limit ~62 days)']);
-                break;
-            }
 
-            $out = [];
-            for ($d = $start; $d <= $end; $d = $d->modify('+1 day')) {
-                $ymd = $d->format('Y-m-d');
-                try {
-                    $out[$ymd] = sync_ohlc_for_date($ymd, 'XAU', 'PHP')['stored'] ?? null;
-                    usleep(200000); // 0.2s throttle
-                } catch (Throwable $e) {
-                    $out[$ymd] = ['error' => $e->getMessage()];
+        case 'syncRange': {
+            $input = read_json();
+            $from = (string)($input['from'] ?? '');
+            $to   = (string)($input['to'] ?? '');
+            if (!validate_date($from) || !validate_date($to)) respond(['error'=>'Invalid from/to'], 400);
+            if ($from > $to) respond(['error'=>'from > to'], 400);
+
+            // Optional per-request overwrite toggle (overrides env default)
+            $overwriteParam = $_GET['overwrite'] ?? $input['overwrite'] ?? null;
+            if ($overwriteParam !== null) {
+                $ov = filter_var($overwriteParam, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                if ($ov !== null) {
+                    // sync_ohlc_for_date reads global $metalCfg
+                    $GLOBALS['metalCfg']['overwrite'] = (bool)$ov;
                 }
             }
-            echo json_encode(['from'=>$from,'to'=>$to,'results'=>$out]);
-            break;
+
+            $dates = [];
+            $d = new DateTimeImmutable($from);
+            $end = new DateTimeImmutable($to);
+            while ($d <= $end) { $dates[] = $d->format('Y-m-d'); $d = $d->modify('+1 day'); }
+
+            $ok = 0; $errors = [];
+            foreach ($dates as $ymd) {
+                try {
+                    $res = sync_ohlc_for_date($ymd, 'XAU', 'PHP');
+                    if (!empty($res['stored'])) $ok++;
+                } catch (Throwable $e) {
+                    $errors[] = [$ymd, $e->getMessage()];
+                }
+            }
+            $status = [
+                'success' => empty($errors),
+                'stored' => $ok,
+                'attempted' => count($dates),
+                'overwrite' => (bool)($GLOBALS['metalCfg']['overwrite'] ?? false)
+            ];
+            if ($errors) $status['errors'] = $errors;
+            respond($status, $errors ? 207 : 200);
         }
+
         default:
-            http_response_code(400);
-            echo json_encode(['error' => 'Unknown action. Use action=lastDate or action=syncRange']);
+            respond(['error' => 'Unknown action'], 400);
     }
 } catch (Throwable $e) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Server error']);
+    respond(['error' => 'Server error', 'detail' => $e->getMessage()], 500);
 }
+?>

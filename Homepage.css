@@ -453,6 +453,33 @@ body.dark-mode footer {
   }
 }
 
+/* Map/Iframe Wrapper Styles */
+.iframe-wrapper {
+  margin: 2rem auto;
+  max-width: 800px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+body.dark-mode .iframe-wrapper {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.iframe-wrapper iframe {
+  width: 100%;
+  height: 450px;
+  border: none;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .iframe-wrapper iframe {
+    height: 350px;
+  }
+}
+
 /* Consistent with SellGold.css for mobile nav */
 @media (max-width: 768px) {
     nav { /* Ensure nav is hidden on small screens for mobile menu */

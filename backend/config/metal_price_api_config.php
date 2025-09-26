@@ -39,4 +39,11 @@ return [
     'base'       => env_or($vars, 'METAL_PRICE_API_BASE', 'USD'),
     'currencies' => env_or($vars, 'METAL_PRICE_API_CURRENCIES', 'XAU'),
     'timeout'    => (int)env_or($vars, 'METAL_PRICE_API_TIMEOUT', 10),
+    // Unit handling: what the provider returns vs what we want to store
+    // Acceptable values: 'ounce', 'troy_ounce', 'oz', 'gram', 'g'
+    'unit'       => strtolower((string)env_or($vars, 'METAL_PRICE_API_UNIT', 'ounce')),
+    'store_unit' => strtolower((string)env_or($vars, 'METAL_PRICE_STORE_UNIT', 'gram')),
+    // Whether sync is allowed to overwrite existing DB rows for a date
+    // Set METAL_PRICE_SYNC_OVERWRITE=true to enable overwriting; default is false (insert-only)
+    'overwrite'  => filter_var((string)env_or($vars, 'METAL_PRICE_SYNC_OVERWRITE', 'false'), FILTER_VALIDATE_BOOLEAN),
 ];

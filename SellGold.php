@@ -9,6 +9,7 @@ $goldChart = gold_build_chart_params($_GET);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gold Nail - Buy & Sell Gold and Accessories</title>
     <link rel="stylesheet" href="SellGold.css">
+    <link rel="stylesheet" href="chat.css">
     <link rel="stylesheet" href="assets/css/gold_chart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -45,7 +46,7 @@ $goldChart = gold_build_chart_params($_GET);
     <header>
       <div class="container header-content-padding flex justify-between items-center">
         <div class="flex items-center">
-          <span class="icon-gem" aria-hidden="true"></span>
+          <img src="IMG/N.png" alt="Logo of Gold Nail" style="width:40px; height:40px; border-radius:20%; margin-right:10px;">
           <span class="gold-text">Gold Nail</span>
         </div>
         <nav>
@@ -67,7 +68,7 @@ $goldChart = gold_build_chart_params($_GET);
 
     <section id="live-gold-chart" class="gold-chart-section">
       <div class="gold-chart-shell">
-        <h2>Live Gold Price (Candlestick)</h2>
+        <h2>Live Gold Price</h2>
         <div class="gold-chart-controls">
           <form id="goldChartForm" method="get" action="SellGold.php">
             <div class="left">
@@ -255,13 +256,12 @@ $goldChart = gold_build_chart_params($_GET);
                         <li><a href="About Us.php">About Us</a></li>
                     </ul>
                 </div>
-                <div class="footer-column" id="contact-info">
+                <div class="footer-column">
                     <h3>Contact</h3>
                     <ul>
                         <li>4740 la villa III unit 104 solchuaga street brgy tejeros makati city</li>
                         <li>Landline: 83625478</li>
-                        <li>Phone Number: +639490561676 </li>
-                        <li>Email: info@goldnail.com</li>
+                        <li>Phone Number: +639490561676</li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -277,8 +277,42 @@ $goldChart = gold_build_chart_params($_GET);
         </div>
     </footer>
 
+    <!-- Chat Widget -->
+    <div id="chatbot-icon" title="Chat with us!"></div>
+
+    <!-- Chat Container -->
+    <div id="chat-container" class="hidden">
+        <div class="chat-header">
+            <div class="chat-title">Gold Nail Support</div>
+            <button class="close-chat">&times;</button>
+        </div>
+        <div id="chat-box">
+            <div id="chat-history">
+                <div class="welcome-message">
+                    👋 Hello! I'm here to help you with any questions about Gold Nail's services, gold prices, or appointments. How can I assist you today?
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-action-btn" data-message="What are your current gold prices?">Gold Prices</button>
+                    <button class="quick-action-btn" data-message="How can I sell my gold?">Sell Gold</button>
+                    <button class="quick-action-btn" data-message="What are your business hours?">Hours</button>
+                    <button class="quick-action-btn" data-message="Where are you located?">Location</button>
+                </div>
+            </div>
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div id="chat-input-box">
+            <input type="text" id="chat-input" placeholder="Type your message here..." maxlength="500">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
     <script type="module" src="backend/scripts/gold/index.js"></script>
     <script src="backend/scripts/backfill.js"></script>
     <script src="SellGold.js"></script>
+    <script src="chat.js"></script>
 </body>
 </html>
